@@ -1,3 +1,6 @@
+require('dotenv').config({path: __dirname + '/.env'});
+require('./connect');
+
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
