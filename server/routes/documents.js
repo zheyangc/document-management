@@ -47,28 +47,22 @@ router.get('/type/:documentType/count', function (req, res) {
       });
     })
     .then((count) => {
-      res.send({count: count});
+      res.send({ count: count });
     });
 });
 
 // Persist Documents
-// parameters: documentType, userName, [documentNumbers], count
+// parameters: documentType, userName, startNumber, count
 router.post('/', function (req, res) {
 
-  var { count, documentNumbers, userName, documentType } = req.body;
-
-  // verify documentNumbers are consecutive and non-duplicated
-  
-  
-
+  var { count, startNumber, userName, documentType } = req.body;
   var newDocuments = [];
-  console.log("count", documentTypeCount);
-  for (documentNumber in documentNumbers) {
+  for (var c = 0; c < count; c++) {
     newDocuments.push({
       documentType: documentType,
-      documentNumber: documentNumber,
+      documentNumber: startNumber + c,
       userName: userName,
-    })
+    });
   }
 
   Document.insertMany(newDocuments)
@@ -79,7 +73,6 @@ router.post('/', function (req, res) {
         err: err
       });
     });
-
 });
 
 module.exports = router;
