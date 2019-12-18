@@ -2,11 +2,13 @@ import React from 'react'
 import {
     Card, 
 } from 'react-bootstrap'
+import SubmitForm from './SubmitForm'
 
 function ViewBox(props) {
     return (
-        <Card style={{ width: '35rem'}}>
+        <Card style={{ margin: 'auto'}}>
             <Card.Body>
+                <SubmitForm></SubmitForm>
             </Card.Body>
         </Card>
     );

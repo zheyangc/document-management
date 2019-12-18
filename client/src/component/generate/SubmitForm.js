@@ -2,7 +2,6 @@ import React from 'react'
 import {
     Form,
     Button,
-    Card, 
     Row, 
     Col,
 } from 'react-bootstrap'
