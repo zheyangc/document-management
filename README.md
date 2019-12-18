@@ -9,7 +9,7 @@
 `$ sudo apt install -y nodejs`
 
 
-## Install Express and Nodemon
+## Install Nodemon
 
 `$ sudo npm install -g nodemon` 
 
