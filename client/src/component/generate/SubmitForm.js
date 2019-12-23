@@ -6,32 +6,29 @@ import {
     Col,
 } from 'react-bootstrap'
 
-function SubmitForm(props) {
-    return (
-        <Form>
-            <Form.Group as={Row} controlId="formHorizontalName">
-                <Form.Label column sm={2}>
-                取号人
-                </Form.Label>
-                <Col sm={10}>
-                <Form.Control type="name" placeholder="Name" />
-                </Col>
-            </Form.Group>
+class SubmitForm extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-            <Form.Group as={Row} controlId="formHorizontalNmber">
-                <Form.Label column sm={2}>
-                数量
-                </Form.Label>
-                <Col sm={10}>
-                <Form.Control type="number" placeholder="Number" min='0'/>
-                </Col>
-            </Form.Group>
-
-            <Button variant="primary" type="submit">
-                提交
-            </Button>
-        </Form>
-    );
+    render() {
+        return (
+            <Form>
+                <Form.Label>取号人</Form.Label>
+                <Form.Control as="select">
+                    <option disabled selected>请选择取号人</option>
+                    <option>Amy</option>
+                    <option>Bob</option>
+                    <option>Cindy</option>
+                    <option>Danny</option>
+                    <option>Ella</option>
+                </Form.Control>
+                <Form.Label>数量</Form.Label>
+                <Form.Control type="number"/>
+                <Button type="submit">提交</Button>
+            </Form>
+        );
+    }
 }
 
 export default SubmitForm;
