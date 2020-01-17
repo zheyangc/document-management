@@ -3,31 +3,12 @@ var router = express.Router();
 var Document = require('../models/document');
 
 // Display all the documents
-router.get('/', function (req, res) {
-  res.send('get documents');
-});
-
-
-// Display all the documents
-router.get('/user/:userName', function (req, res) {
-  Document.find({ userName: req.params.userName }, "-_id -__v")
+router.get('/', function(req, res){
+  var query = req.query;
+  Document.find(query, "-_id -__v")
     .catch((err) => {
       res.send({
         msg: "failed to get documents",
-        err: err
-      });
-    })
-    .then((documents) => {
-      res.send({ documents });
-    });
-});
-
-// Get all the documents given type 
-router.get('/type/:documentType', function (req, res) {
-  Document.find({ documentType: req.params.documentType }, "-_id -__v")
-    .catch((err) => {
-      res.send({
-        msg: "failed to create document number",
         err: err
       });
     })
@@ -52,26 +33,34 @@ router.get('/type/:documentType/count', function (req, res) {
 });
 
 // Persist Documents
-// parameters: documentType, userName, startNumber, count
+// parameters: documentType, userName, count
 router.post('/', function (req, res) {
-
-  var { count, startNumber, userName, documentType } = req.body;
+  var { count, userName, documentType } = req.body;
   var newDocuments = [];
-  for (var c = 0; c < count; c++) {
-    newDocuments.push({
-      documentType: documentType,
-      documentNumber: startNumber + c,
-      userName: userName,
-    });
-  }
 
-  Document.insertMany(newDocuments)
-    .then((documents) => res.send(documents))
+  Document.count({ documentType: documentType })
     .catch((err) => {
       res.send({
-        msg: "failed to create document number",
+        msg: "failed to get document count",
         err: err
       });
+    })
+    .then((existingCount) => {
+      for (var c = 1; c <= count; c++) {
+        newDocuments.push({
+          documentType: documentType,
+          documentNumber: existingCount + c,
+          userName: userName,
+        });
+      }
+      Document.insertMany(newDocuments)
+        .then((documents) => res.send(documents))
+        .catch((err) => {
+          res.send({
+            msg: "failed to create document number",
+            err: err
+          });
+        });
     });
 });
 
