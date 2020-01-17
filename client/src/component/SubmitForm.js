@@ -10,8 +10,9 @@ class SubmitForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            name: "",
-            number: ""
+            userName: "",
+            count: "",
+            documentType: ""
         };
     }
 
@@ -27,11 +28,18 @@ class SubmitForm extends React.Component {
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
+                <Form.Label>类型</Form.Label>
+                    <Form.Control as="select" name="documentType" value={this.state.documentType} onChange={this.handleChange}>
+                        <option value="shiXianGaoZhiShu">事先告知书</option>
+                        <option value="tingZhengGaoZhiShu">听证告知书</option>
+                        <option value="songDaHuiZheng">送达回证</option>
+                    </Form.Control>
+
                 <Form.Label>取号人</Form.Label>
-                <Form.Control name="name" value={this.state.name} onChange={this.handleChange}/>
+                <Form.Control name="userName" value={this.state.userName} onChange={this.handleChange}/>
 
                 <Form.Label>数量</Form.Label>
-                <Form.Control name="number" value={this.state.number} onChange={this.handleChange}/>
+                <Form.Control name="count" value={this.state.count} onChange={this.handleChange}/>
 
                 <Button type="submit">提交</Button>
             </Form>
