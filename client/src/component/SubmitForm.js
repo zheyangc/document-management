@@ -18,32 +18,20 @@ class SubmitForm extends React.Component {
     handleChange = (event) => {
         this.setState({
             ...this.state,
-            number: event.target.value
+            [event.target.name]: event.target.value
         });
     }
 
-    handleSelect = (event) => {
-        this.setState({
-            ...this.state,
-            name: event.target.value
-        })
-    }
-
-    handleSubmit = () => {
-    }
+    // handleSubmit = submitForm(this.state.name, this.state.number);
 
     render() {
         return (
             <Form onSubmit={this.handleSubmit}>
                 <Form.Label>取号人</Form.Label>
-                <Form.Control as="select" value={this.state.name} onChange={this.handleSelect}>
-                    <option value="">请选择取号人...</option>
-                    <option value="amy">Amy</option>
-                    <option value="bob">Bob</option>
-                </Form.Control>
+                <Form.Control name="name" value={this.state.name} onChange={this.handleChange}/>
 
                 <Form.Label>数量</Form.Label>
-                <Form.Control value={this.state.number} onChange={this.handleChange}/>
+                <Form.Control name="number" value={this.state.number} onChange={this.handleChange}/>
 
                 <Button type="submit">提交</Button>
             </Form>
