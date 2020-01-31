@@ -1,9 +1,7 @@
 import axios from 'axios'
 
 const PostFormApi = (req) => {
-    console.log(req)
     if (!req || !req.documentType || !req.count || isNaN(req.count) || !req.userName) {
-        console.log("oops")
         return {
             status: false,
             error: "bad request"
@@ -12,7 +10,20 @@ const PostFormApi = (req) => {
 
     axios.post('http://localhost:3001/documents', req)
         .then(resp => {
-            console.log(resp);
+            if (resp.data.error) {
+                return {
+                    status: false,
+                    error: resp.data.msg
+                }
+            }
+            let res = [];
+            for (let i = 0; i < resp.data.length; i++) {
+                res.push(resp.data[i].documentNumber)
+            }
+            return {
+                status: true,
+                res
+            }
         })
         .catch(error => {
             console.log(error)
