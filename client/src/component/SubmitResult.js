@@ -21,7 +21,7 @@ function SubmitResult(props) {
         if (props.result.status) {
             return (
                 <Alert variant='success'>
-                    成功提交, 编号为{printResult(props.result.res)}
+                    提交成功, 编号为{printResult(props.result.res)}
                 </Alert>
             );
         } else {
