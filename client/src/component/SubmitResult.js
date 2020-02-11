@@ -20,14 +20,14 @@ function SubmitResult(props) {
     if (props.submitted) {
         if (props.result.status) {
             return (
-                <Alert variant='success'>
+                <Alert className="m-auto p-auto" variant='success'>
                     提交成功, 编号为{printResult(props.result.res)}
                 </Alert>
             );
         } else {
             return (
-                <Alert variant='danger'>
-                    提交失败
+                <Alert className="m-auto p-auto" variant='danger'>
+                    提交失败, {props.result.error.toString()}
                 </Alert>
             )
         }

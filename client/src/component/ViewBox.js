@@ -25,7 +25,7 @@ class ViewBox extends React.Component {
 
     render () {
         return (
-            <Card className="mx-auto w-50 my-5 " style={{ margin: 'auto'}}>
+            <Card className="mx-auto my-5 w-75" style={{ margin: 'auto'}}>
                 <Card.Body>
                     <SubmitForm handleSubmit = {this.handleSubmit}></SubmitForm>
                     <SubmitResult submitted = {this.state.submitted} result = {this.state.res}></SubmitResult>

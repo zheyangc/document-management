@@ -7,15 +7,9 @@ const PostFormApi = async (req) => {
             error: "bad request"
         }
     }
-
-    let resp = await axios.post('http://localhost:3001/documents', req);
-    if (resp.data.error) {
-        return {
-            status: false,
-            error: resp.data.msg
-        }
-    }
-    let res = [];
+    try {
+        let resp = await axios.post('http://localhost:3001/documents', req);
+        let res = [];
     for (let i = 0; i < resp.data.length; i++) {
         res.push(resp.data[i].documentNumber)
     }
@@ -23,6 +17,12 @@ const PostFormApi = async (req) => {
         status: true,
         res
     }
+    } catch (err) {
+        return {
+            status: false,
+            error: err
+        }
+    }    
 }
 
 export default PostFormApi;
