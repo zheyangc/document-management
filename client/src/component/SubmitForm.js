@@ -38,7 +38,7 @@ class SubmitForm extends React.Component {
                 <Form.Label>数量</Form.Label>
                 <Form.Control name="count" value={this.state.count} onChange={this.handleChange}/>
 
-                <Button type="submit" onClick = {() => this.props.handleSubmit(this.state)}>提交</Button>
+                <Button onClick = {() => this.props.handleSubmit(this.state)}>提交</Button>
             </Form>
         );
     }

@@ -11,12 +11,16 @@ class ViewBox extends React.Component {
         super(props);
         this.state = {
             submitted: false,
+            res: null
         }
     }
 
     handleSubmit = async (form) => {
-        await PostFormApi(form);
-        this.setState({submitted: true})
+        let res = await PostFormApi(form);
+        this.setState({
+            res,
+            submitted: true
+        });
     }
 
     render () {
@@ -24,7 +28,7 @@ class ViewBox extends React.Component {
             <Card style={{ margin: 'auto'}}>
                 <Card.Body>
                     <SubmitForm handleSubmit = {this.handleSubmit}></SubmitForm>
-                    <SubmitResult submitted = {this.state.submitted}></SubmitResult>
+                    <SubmitResult submitted = {this.state.submitted} result = {this.state.res}></SubmitResult>
                 </Card.Body>
             </Card>
         );
