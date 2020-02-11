@@ -5,11 +5,13 @@ import {
 } from 'react-bootstrap'
 
 function SubmitResult(props) {
-    return (
+    if (props.submitted) {
+        return (
         <Alert variant='success'>
-            Successful
-        </Alert>    
-    );
+            成功提交, 编号为{}
+        </Alert>);
+    }
+    return null;
 }
 
 export default SubmitResult;

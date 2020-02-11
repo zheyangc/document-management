@@ -4,16 +4,31 @@ import {
 } from 'react-bootstrap'
 import SubmitForm from './SubmitForm'
 import SubmitResult from './SubmitResult'
+import PostFormApi from '../api/PostForm'
 
-function ViewBox(props) {
-    return (
-        <Card style={{ margin: 'auto'}}>
-            <Card.Body>
-                <SubmitForm></SubmitForm>
-                <SubmitResult></SubmitResult>
-            </Card.Body>
-        </Card>
-    );
+class ViewBox extends React.Component {
+    constructor (props) {
+        super(props);
+        this.state = {
+            submitted: false,
+        }
+    }
+
+    handleSubmit = async (form) => {
+        await PostFormApi(form);
+        this.setState({submitted: true})
+    }
+
+    render () {
+        return (
+            <Card style={{ margin: 'auto'}}>
+                <Card.Body>
+                    <SubmitForm handleSubmit = {this.handleSubmit}></SubmitForm>
+                    <SubmitResult submitted = {this.state.submitted}></SubmitResult>
+                </Card.Body>
+            </Card>
+        );
+    }
 }
 
 export default ViewBox;

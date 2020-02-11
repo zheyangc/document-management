@@ -3,7 +3,6 @@ import {
     Form,
     Button,
 } from 'react-bootstrap'
-import PostFormApi from '../api/PostForm'
 
 class SubmitForm extends React.Component {
     constructor(props) {
@@ -22,13 +21,9 @@ class SubmitForm extends React.Component {
         });
     }
 
-    handleSubmit = (event) => {
-        PostFormApi(this.state);
-    }
-
     render() {
         return (
-            <Form onSubmit={this.handleSubmit}>
+            <Form>
                 <Form.Label>类型</Form.Label>
                     <Form.Control as="select" name="documentType" value={this.state.documentType} onChange={this.handleChange}>
                         <option value = "" disabled>请选择...</option>
@@ -43,7 +38,7 @@ class SubmitForm extends React.Component {
                 <Form.Label>数量</Form.Label>
                 <Form.Control name="count" value={this.state.count} onChange={this.handleChange}/>
 
-                <Button type="submit">提交</Button>
+                <Button type="submit" onClick = {() => this.props.handleSubmit(this.state)}>提交</Button>
             </Form>
         );
     }
