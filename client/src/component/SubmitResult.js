@@ -9,7 +9,7 @@ const printResult = (array) => {
     let length = array.length;
     for (let i = 0; i < length; i++) {
         res += array[i]
-        if (i != length - 1) {
+        if (i !== length - 1) {
             res += ", ";
         }
     }
