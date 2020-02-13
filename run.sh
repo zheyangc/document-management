@@ -16,6 +16,9 @@ sudo apt install -y nginx
 echo "install mongodb"
 sudo apt install -y mongodb
 
+echo "update npm"
+sudo npm update
+
 echo "install nodemon"
 sudo npm install nodemon -g
 
