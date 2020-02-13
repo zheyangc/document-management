@@ -21,3 +21,11 @@ sudo npm install nodemon -g
 
 echo "install pm2"
 sudo npm install pm2 -g
+
+echo "install packages for server"
+cd server
+sudo npm install
+
+echo "install packages for client"
+cd ../client
+sudo npm install
