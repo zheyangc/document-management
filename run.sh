@@ -11,7 +11,7 @@ curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 echo "install nginx"
-sudo apt install nginx
+sudo apt install -y nginx
 
 echo "install mongodb"
 sudo apt install -y mongodb
