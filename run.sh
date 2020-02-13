@@ -32,3 +32,6 @@ sudo npm install
 echo "install packages for client"
 cd ../client
 sudo npm install
+
+cd ../
+pm2 start
