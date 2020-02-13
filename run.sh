@@ -34,4 +34,5 @@ cd ../client
 sudo npm install
 
 cd ../
+echo "starting service..."
 pm2 start
