@@ -1,4 +1,4 @@
-#!/bin.bash
+#!/bin/bash
 
 echo "update apt" 
 sudo apt update 
