@@ -1,17 +1,18 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavigationBar from './component/NavigBar';
+import NavigationBar from './components/NavigBar';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
 } from "react-router-dom";
-import {Submit} from './component/submit';
-import {Search} from './component/search';
+import {Submit} from './components/submit';
+import {Search} from './components/search';
+import {DocumentContextProvider} from './contexts/DocumentContext'
 
 function App() {
   return (
-    <React.Fragment>
+    <DocumentContextProvider>
       <NavigationBar/>
       <Router>
         <Switch>
@@ -20,7 +21,7 @@ function App() {
           <Route path="/search" component={Search}/>
         </Switch>
       </Router>
-    </React.Fragment>
+    </DocumentContextProvider>
   );
 }
 

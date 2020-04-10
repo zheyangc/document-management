@@ -4,7 +4,7 @@ import {
 } from 'react-bootstrap'
 import SubmitForm from './SubmitForm'
 import SubmitResult from './SubmitResult'
-import PostFormApi from '../api/PostForm'
+import PostFormApi from '../../api/PostForm'
 
 class ViewBox extends React.Component {
     constructor (props) {
