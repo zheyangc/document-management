@@ -23,8 +23,10 @@ export const SubmitForm = () => {
     if (res.status) {
       formDispatch({ type: "SUBMIT_FORM_SUCCEEDED", payload: res.data });
     } else {
-      console.log()
-      formDispatch({ type: "SUBMIT_FORM_FAILED", payload: res.error.toString() });
+      formDispatch({
+        type: "SUBMIT_FORM_FAILED",
+        payload: res.error.toString(),
+      });
     }
   };
 

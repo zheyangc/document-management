@@ -29,7 +29,7 @@ export const formReducer = (state, action) => {
         ...initialFormState,
         submitStatus: "SUBMITTED",
         submitResult: {
-          res: "SUCCEEDED", 
+          res: "SUCCEEDED",
           data: action.payload,
         },
       };

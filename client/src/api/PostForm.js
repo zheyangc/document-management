@@ -9,7 +9,7 @@ export const PostFormApi = async (req) => {
     );
     return {
       status: true,
-      data: resp.data
+      data: resp.data,
     };
   } catch (err) {
     return {

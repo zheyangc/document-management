@@ -1,24 +1,20 @@
-import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import NavigationBar from './components/NavigBar';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-} from "react-router-dom";
-import {Submit} from './components/submit';
-import {Search} from './components/search';
-import {DocumentContextProvider} from './contexts/DocumentContext'
+import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import NavigationBar from "./components/NavigBar";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Submit } from "./components/submit";
+import { Search } from "./components/search";
+import { DocumentContextProvider } from "./contexts/DocumentContext";
 
 function App() {
   return (
     <DocumentContextProvider>
-      <NavigationBar/>
+      <NavigationBar />
       <Router>
         <Switch>
-          <Route exact path="/" component={Submit}/>
-          <Route path="/submit" component={Submit}/>
-          <Route path="/search" component={Search}/>
+          <Route exact path="/" component={Submit} />
+          <Route path="/submit" component={Submit} />
+          <Route path="/search" component={Search} />
         </Switch>
       </Router>
     </DocumentContextProvider>
