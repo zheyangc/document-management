@@ -18,3 +18,20 @@ export const PostFormApi = async (req) => {
     };
   }
 };
+
+export const getDocuments = async() => {
+  try {
+    let resp = await axios.get(
+      ConfigValues.DOCUMENT_SERVICE_PATH + ":3001/documents",
+    );
+    return {
+      status: true,
+      data: resp.data,
+    };
+  } catch (err) {
+    return {
+      status: false,
+      error: err,
+    };
+  }
+}
