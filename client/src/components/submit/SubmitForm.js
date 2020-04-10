@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Form, Button } from "react-bootstrap";
-import { DocumentType } from "../../constant/DocumentType";
+import { DocumentTypes } from "../../constant/DocumentTypes";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { PostFormApi } from "../../api/PostForm";
 
@@ -21,9 +21,10 @@ export const SubmitForm = () => {
     formDispatch({ type: "SUBMIT_FORM", payload: state });
     let res = await PostFormApi(state);
     if (res.status) {
-      formDispatch({ type: "SUBMIT_FORM_SUCCEEDED", payload: res });
+      formDispatch({ type: "SUBMIT_FORM_SUCCEEDED", payload: res.data });
     } else {
-      formDispatch({ type: "SUBMIT_FORM_FAILED", payload: res.error });
+      console.log()
+      formDispatch({ type: "SUBMIT_FORM_FAILED", payload: res.error.toString() });
     }
   };
 
@@ -46,7 +47,7 @@ export const SubmitForm = () => {
           <option value="" disabled>
             请选择...
           </option>
-          {DocumentType.map((document) => (
+          {DocumentTypes.map((document) => (
             <option key={document.type} value={document.type}>
               {document.name}
             </option>

@@ -1,4 +1,4 @@
-export const DocumentType = [
+export const DocumentTypes = [
   {
     type: "shiXianGaoZhiShu",
     name: "事先告知书",

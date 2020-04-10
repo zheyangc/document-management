@@ -3,6 +3,7 @@ export const initialFormState = {
   count: "",
   documentType: "",
   submitStatus: null,
+  submitResult: null,
 };
 
 export const formReducer = (state, action) => {
@@ -20,16 +21,15 @@ export const formReducer = (state, action) => {
     case "SUBMIT_FORM": {
       return {
         ...state,
-        submitStatus: {
-          type: "SUBMITTING",
-        },
+        submitStatus: "SUBMITTING",
       };
     }
     case "SUBMIT_FORM_SUCCEEDED": {
       return {
         ...initialFormState,
-        submitStatus: {
-          type: "SUCCEEDED",
+        submitStatus: "SUBMITTED",
+        submitResult: {
+          res: "SUCCEEDED", 
           data: action.payload,
         },
       };
@@ -37,8 +37,9 @@ export const formReducer = (state, action) => {
     case "SUBMIT_FORM_FAILED": {
       return {
         ...state,
-        submitStatus: {
-          type: "FAILED",
+        submitStatus: "SUBMITTED",
+        submitResult: {
+          res: "FAILED",
           error: action.payload,
         },
       };
