@@ -1,7 +1,11 @@
 import React from 'react';
 import {SubmitForm} from './SubmitForm'
+import {SubmitResult} from './SubmitResult'
 
 export const Submit = () => ( 
-    <SubmitForm />
+    <React.Fragment>
+        <SubmitForm />
+        <SubmitResult/>
+    </React.Fragment>
 )
 

@@ -27,10 +27,10 @@ export const formReducer = (state, action) => {
     }
     case "SUBMIT_FORM_SUCCEEDED": {
       return {
-        ...state,
+        ...initialFormState,
         submitStatus: {
           type: "SUCCEEDED",
-          res: action.payload,
+          data: action.payload,
         },
       };
     }
