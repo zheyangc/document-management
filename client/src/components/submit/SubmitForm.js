@@ -21,7 +21,7 @@ export const SubmitForm = () => {
     formDispatch({ type: "SUBMIT_FORM", payload: state });
     let res = await PostFormApi(state);
     if (res.status) {
-      formDispatch({ type: "SUBMIT_FORM_SUCCEEDED"});
+      formDispatch({ type: "SUBMIT_FORM_SUCCEEDED", payload: res});
     } else {
       formDispatch({ type: "SUBMIT_FORM_FAILED", payload: res.error });
     }

@@ -7,13 +7,9 @@ export const PostFormApi = async (req) => {
       ConfigValues.DOCUMENT_SERVICE_PATH + ":3001/documents",
       req
     );
-    let res = [];
-    for (let i = 0; i < resp.data.length; i++) {
-      res.push(resp.data[i].documentNumber);
-    }
     return {
       status: true,
-      res,
+      data: resp.data
     };
   } catch (err) {
     return {

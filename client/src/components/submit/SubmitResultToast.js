@@ -16,7 +16,7 @@ const printResult = (array) => {
     return res;
 }
 
-function SubmitResult(props) {
+export default const SubmitResult = () => {
     if (props.submitted) {
         if (props.result.status) {
             return (
@@ -35,5 +35,3 @@ function SubmitResult(props) {
     }
     return null;
 }
-
-export default SubmitResult;

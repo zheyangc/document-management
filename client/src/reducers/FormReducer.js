@@ -17,14 +17,20 @@ export const formReducer = (state, action) => {
       };
     }
     case "SUBMIT_FORM_SUCCEEDED": {
-      return {...initialFormState};
+      return {
+        ...state,
+        submitStatus: {
+          type: "SUCCEEDED",
+          res: action.payload
+        }
+      };
     }
     case "SUBMIT_FORM_FAILED": {
       return {
         ...state,
         submitStatus: {
           type: "FAILED",
-          error: "",
+          error: action.payload,
         }
       };
     }
