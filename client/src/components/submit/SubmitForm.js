@@ -4,17 +4,21 @@ import { DocumentType } from "../../constant/DocumentType";
 import { DocumentContext } from "../../contexts/DocumentContext";
 
 export const SubmitForm = () => {
-  const { formState, formDispatch } = useContext(DocumentContext);
+  const { formState: state, formDispatch } = useContext(DocumentContext);
 
   const handleChange = (event) => {
     formDispatch({
       type: "UPDATE_FORM",
       payload: {
-        ...formState,
+        ...state,
         [event.target.name]: event.target.value,
       },
     });
   };
+
+  const isFormValid = () => {
+    return state.userName && state.documentType && state.count && !isNaN(state.count)
+  }
 
   return (
     <Form>
@@ -23,7 +27,7 @@ export const SubmitForm = () => {
         <Form.Control
           as="select"
           name="documentType"
-          value={formState.documentType}
+          value={state.documentType}
           onChange={handleChange}
         >
           <option value="" disabled>
@@ -41,7 +45,7 @@ export const SubmitForm = () => {
         <Form.Label>取号人</Form.Label>
         <Form.Control
           name="userName"
-          value={formState.userName}
+          value={state.userName}
           onChange={handleChange}
         />
       </Form.Group>
@@ -50,13 +54,13 @@ export const SubmitForm = () => {
         <Form.Label>数量</Form.Label>
         <Form.Control
           name="count"
-          value={formState.count}
+          value={state.count}
           onChange={handleChange}
         />
       </Form.Group>
 
       <Form.Group>
-        <Button>提交</Button>
+        <Button disabled={!isFormValid()}>提交</Button>
       </Form.Group>
     </Form>
   );
