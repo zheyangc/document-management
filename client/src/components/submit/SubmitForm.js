@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Form, Button } from "react-bootstrap";
 import { DocumentTypes } from "../../constant/DocumentTypes";
 import { DocumentContext } from "../../contexts/DocumentContext";
-import { PostFormApi } from "../../api/PostForm";
+import { submitDocuments } from "../../api/Documents";
 
 export const SubmitForm = () => {
   const { formState: state, formDispatch } = useContext(DocumentContext);
@@ -19,7 +19,7 @@ export const SubmitForm = () => {
 
   const handleSubmit = async () => {
     formDispatch({ type: "SUBMIT_FORM", payload: state });
-    let res = await PostFormApi(state);
+    let res = await submitDocuments(state);
     if (res.status) {
       formDispatch({ type: "SUBMIT_FORM_SUCCEEDED", payload: res.data });
     } else {
