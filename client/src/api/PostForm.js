@@ -1,5 +1,5 @@
 import axios from 'axios'
-import ConfigValues from '../common/ConfigValues'
+import ConfigValues from '../constant/ConfigValues'
 
 const PostFormApi = async (req) => {
     if (!req || !req.documentType || !req.count || isNaN(req.count) || !req.userName) {

@@ -4,18 +4,16 @@ import {
     Nav,
 } from 'react-bootstrap'
 
-function NavigBar(props) {
+function NavigBar() {
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="#home">主页</Navbar.Brand>
+            <Navbar.Brand href="/">主页</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-
                 <Nav className="mr-auto">
-                    <Nav.Link href="#generate">获取编号</Nav.Link>
-                    <Nav.Link href="#query">查询编号</Nav.Link>
+                    <Nav.Link href="/submit">获取编号</Nav.Link>
+                    <Nav.Link href="/search">查询编号</Nav.Link>
                 </Nav>
-
                 <Nav>
                     <Nav.Link href="#login">登录</Nav.Link>
                 </Nav>
