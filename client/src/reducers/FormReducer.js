@@ -15,14 +15,14 @@ export const formReducer = (state, action) => {
         userName: data.userName,
         count: data.count,
         documentType: data.documentType,
-      }  
+      };
     }
     case "SUBMIT_FORM": {
       return {
         ...state,
         submitStatus: {
-          type: "SUBMITTING"
-        }
+          type: "SUBMITTING",
+        },
       };
     }
     case "SUBMIT_FORM_SUCCEEDED": {
@@ -30,8 +30,8 @@ export const formReducer = (state, action) => {
         ...state,
         submitStatus: {
           type: "SUCCEEDED",
-          res: action.payload
-        }
+          res: action.payload,
+        },
       };
     }
     case "SUBMIT_FORM_FAILED": {
@@ -40,13 +40,13 @@ export const formReducer = (state, action) => {
         submitStatus: {
           type: "FAILED",
           error: action.payload,
-        }
+        },
       };
     }
     case "RESET_FORM": {
       return initialFormState;
     }
     default:
-      return {...state};
+      return { ...state };
   }
 };
