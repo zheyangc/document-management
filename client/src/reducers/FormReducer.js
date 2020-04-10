@@ -8,6 +8,15 @@ export const initialFormState = {
 export const formReducer = (state, action) => {
   console.log(action);
   switch (action.type) {
+    case "UPDATE_FORM": {
+      let data = action.payload;
+      return {
+        ...state,
+        userName: data.userName,
+        count: data.count,
+        documentType: data.documentType,
+      }  
+    }
     case "SUBMIT_FORM": {
       return {
         ...state,
@@ -34,14 +43,8 @@ export const formReducer = (state, action) => {
         }
       };
     }
-    case "UPDATE_FORM": {
-      let data = action.payload;
-      return {
-        ...state,
-        userName: data.userName,
-        count: data.count,
-        documentType: data.documentType,
-      }  
+    case "RESET_FORM": {
+      return initialFormState;
     }
     default:
       return {...state};
