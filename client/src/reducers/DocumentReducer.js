@@ -1,6 +1,6 @@
 export const initialDocumentState = {
-  documents: [],
   fetchStatus: null,
+  fetchResults: null,
 };
 
 export const documentReducer = (state, action) => {
@@ -16,13 +16,18 @@ export const documentReducer = (state, action) => {
       return {
         ...initialDocumentState,
         fetchStatus: "FETCHED_SUCCEEDED",
-        documents: action.payload,
+        fetchResults: {
+          data: action.payload,
+        },
       };
     }
     case "FETCH_DOCUMENTS_FAILED": {
       return {
         ...state,
         fetchStatus: "FETCHED_FAILED",
+        fetchResults: {
+          error: action.payload,
+        },
       };
     }
     case "RESET": {
