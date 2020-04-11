@@ -1,6 +1,5 @@
-import React, { useEffect, useContext } from "react";
-import { useTable, useFlexLayout } from "react-table";
-import { getDocuments } from "../../api/Documents";
+import React, { useContext } from "react";
+import { useTable } from "react-table";
 import { DocumentContext } from "../../contexts/DocumentContext";
 
 const Table = ({ columns, data }) => {
@@ -45,28 +44,9 @@ const Table = ({ columns, data }) => {
 };
 
 export const DocumentTable = () => {
-  const { documentState: state, documentDispatch } = useContext(
+  const { documentState: state } = useContext(
     DocumentContext
   );
-
-  useEffect(() => {
-    async function fetchData() {
-      documentDispatch({ type: "FETCH_DOCUMENTS" });
-      const res = await getDocuments();
-      if (res.status) {
-        documentDispatch({
-          type: "FETCH_DOCUMENTS_SUCCEEDED",
-          payload: res.data,
-        });
-      } else {
-        documentDispatch({
-          type: "FETCH_DOCUMENTS_FAILED",
-          payload: res.error,
-        });
-      }
-    }
-    fetchData();
-  }, []);
 
   const columns = React.useMemo(
     () => [
@@ -90,11 +70,5 @@ export const DocumentTable = () => {
     []
   );
 
-  if (state.fetchStatus === "FETCHED_SUCCEEDED") {
-    return (<Table columns={columns} data={state.fetchResults.data} />);
-  } else if (state.fetchStatus === "FETCHING"){
-    return <h1>FETCHING</h1>;
-  } else {
-    return null;
-  }
+  return (<Table columns={columns} data={state.fetchResults.data} />);
 };
