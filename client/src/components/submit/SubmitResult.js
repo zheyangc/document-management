@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { DocumentContext } from "../../contexts/DocumentContext";
-import { DocumentTypes } from "../../constant/DocumentTypes";
+import { DocumentTypeName } from "../../constant/DocumentTypes";
 
 import { Alert } from "react-bootstrap";
 
@@ -18,10 +18,7 @@ export const SubmitResult = () => {
       state.submitResult.data.length
     ) {
       let data = state.submitResult.data;
-      let documentType = data[0].documentType;
-      let documentName = DocumentTypes.filter(
-        (item) => item.type === documentType
-      )[0].name;
+      let documentName = DocumentTypeName[data[0].documentType];
       let numberString =
         data[0].documentNumber +
         (data.length > 1 ? " - " + data[data.length - 1].documentNumber : "");

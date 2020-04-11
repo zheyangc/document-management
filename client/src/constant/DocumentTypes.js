@@ -12,3 +12,13 @@ export const DocumentTypes = [
     name: "送达回证",
   },
 ];
+
+const arrayToMap = array => {
+  let obj = {};
+  array.forEach(item => {
+      obj[item.type] = item.name;
+  });
+  return obj;
+};
+
+export const DocumentTypeName = arrayToMap(DocumentTypes);

@@ -1,5 +1,6 @@
 import axios from "axios";
 import ConfigValues from "../constant/ConfigValues";
+import {mapFetchDataToTableData} from "./DocumentMapping";
 
 export const submitDocuments = async (req) => {
   try {
@@ -26,7 +27,7 @@ export const getDocuments = async() => {
     );
     return {
       status: true,
-      data: resp.data,
+      data: resp.data.documents.map(mapFetchDataToTableData),
     };
   } catch (err) {
     return {

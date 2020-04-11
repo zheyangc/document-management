@@ -72,7 +72,7 @@ export const DocumentTable = () => {
     () => [
       {
         Header: "类型",
-        accessor: "documentType", // accessor is the "key" in the data
+        accessor: "documentTypeName", // accessor is the "key" in the data
       },
       {
         Header: "编号",
@@ -91,7 +91,7 @@ export const DocumentTable = () => {
   );
 
   if (state.fetchStatus === "FETCHED_SUCCEEDED") {
-    return (<Table columns={columns} data={state.fetchResults.data.documents} />);
+    return (<Table columns={columns} data={state.fetchResults.data} />);
   } else if (state.fetchStatus === "FETCHING"){
     return <h1>FETCHING</h1>;
   } else {
