@@ -3,7 +3,6 @@ import { useTable, useFilters, usePagination } from "react-table";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { DefaultColumnFilter, SelectColumnFilter } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
-import { TableSize } from "./TableSize";
 import { Table as StyledTable } from 'react-bootstrap';
 
 const Table = ({ columns, data }) => {
@@ -30,7 +29,6 @@ const Table = ({ columns, data }) => {
   return (
     <React.Fragment>
       <TablePagination tableState={tableState}/>
-      <TableSize tableState={tableState} />
       <StyledTable responsive striped bordered hover {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
