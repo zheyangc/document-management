@@ -1,10 +1,7 @@
 export const initialDocumentTableState = {
-    page: 1,
-    pageSize: 20,
-    totalPage: 1,
-    createDateFilter: null,
-    userNameFilter: null,
-    documentTypeFilter: null,
+    page: null,
+    filter: null,
+    columns: null,
 };
 
 export const documentTableReducer = (state, action) => {
@@ -16,16 +13,16 @@ export const documentTableReducer = (state, action) => {
         page: action.payload,
       }
     }
-    case 'UPDATE_PAGE_SIZE': {
+    case 'UPDATE_FILTER': {
       return {
         ...state,
-        pageSize: action.payload,
+        filter: action.payload,
       }
     }
-    case 'UPDATE_PAGE_COUNT': {
+    case 'UPDATE_COLUMNS': {
       return {
         ...state,
-        pageCount: action.payload,
+        columns: action.payload,
       }
     }
     default:

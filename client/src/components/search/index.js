@@ -3,7 +3,6 @@ import { DocumentTable } from "./DocumentTable";
 import { getDocuments } from "../../api/Documents";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { LoadingSpinner } from "./LoadingSpinner";
-import { PageSelection } from "./TablePage";
 
 export const Search = () => {
   const { documentFetchState: state, documentFetchDispatch } = useContext(
@@ -31,7 +30,6 @@ export const Search = () => {
 
   return (
     <React.Fragment>
-      <PageSelection />
       {state.fetchStatus === "FETCHING" && <LoadingSpinner />}
       {state.fetchStatus === "FETCHED_SUCCEEDED" && <DocumentTable />}
       {state.fetchStatus === "FETCHED_FAILED" && <h1>FAILED</h1>}
