@@ -6,6 +6,7 @@ var Document = require('../models/document');
 router.get('/', function(req, res){
   var query = req.query;
   Document.find(query, "-_id -__v")
+    .sort({createTime: -1})
     .catch((err) => {
       res.send({
         msg: "failed to get documents",
@@ -14,21 +15,6 @@ router.get('/', function(req, res){
     })
     .then((documents) => {
       res.send({ documents });
-    });
-});
-
-// Get document type count 
-router.get('/type/:documentType/count', function (req, res) {
-  var documentType = req.params.documentType;
-  Document.count({ documentType: documentType })
-    .catch((err) => {
-      res.send({
-        msg: "failed to create document number",
-        err: err
-      });
-    })
-    .then((count) => {
-      res.send({ count: count });
     });
 });
 
