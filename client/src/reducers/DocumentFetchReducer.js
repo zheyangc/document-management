@@ -1,9 +1,9 @@
-export const initialDocumentState = {
+export const initialDocumentFetchState = {
   fetchStatus: null,
   fetchResults: null,
 };
 
-export const documentReducer = (state, action) => {
+export const documentFetchReducer = (state, action) => {
   console.log(action);
   switch (action.type) {
     case "FETCH_DOCUMENTS": {
@@ -14,7 +14,7 @@ export const documentReducer = (state, action) => {
     }
     case "FETCH_DOCUMENTS_SUCCEEDED": {
       return {
-        ...initialDocumentState,
+        ...initialDocumentFetchState,
         fetchStatus: "FETCHED_SUCCEEDED",
         fetchResults: {
           data: action.payload,
@@ -31,7 +31,7 @@ export const documentReducer = (state, action) => {
       };
     }
     case "RESET": {
-      return initialDocumentState;
+      return initialDocumentFetchState;
     }
     default:
       return { ...state };

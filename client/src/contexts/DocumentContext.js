@@ -1,17 +1,17 @@
 import React, { createContext, useReducer } from "react";
 import { formReducer, initialFormState } from "../reducers/FormReducer";
 import {
-  documentReducer,
-  initialDocumentState,
-} from "../reducers/DocumentReducer";
+  documentFetchReducer,
+  initialDocumentFetchState,
+} from "../reducers/DocumentFetchReducer";
 
 export const DocumentContext = createContext();
 
 export const DocumentContextProvider = (props) => {
   const [formState, formDispatch] = useReducer(formReducer, initialFormState);
   const [documentState, documentDispatch] = useReducer(
-    documentReducer,
-    initialDocumentState
+    documentFetchReducer,
+    initialDocumentFetchState
   );
 
   return (
