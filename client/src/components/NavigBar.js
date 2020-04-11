@@ -12,7 +12,7 @@ function NavigBar() {
           <Nav.Link href="/search">查询编号</Nav.Link>
         </Nav>
         <Nav>
-          <Nav.Link href="#login">登录</Nav.Link>
+          <Nav.Link href="/login">登录</Nav.Link>
         </Nav>
       </Navbar.Collapse>
     </Navbar>
