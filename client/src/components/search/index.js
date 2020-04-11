@@ -5,21 +5,21 @@ import { DocumentContext } from "../../contexts/DocumentContext";
 import { LoadingSpinner } from './LoadingSpinner';
 
 export const Search = () => {
-  const { documentState: state, documentDispatch } = useContext(
+  const { documentFetchState: state, documentFetchDispatch } = useContext(
     DocumentContext
   );
 
   useEffect(() => {
     async function fetchData() {
-      documentDispatch({ type: "FETCH_DOCUMENTS" });
+      documentFetchDispatch({ type: "FETCH_DOCUMENTS" });
       const res = await getDocuments();
       if (res.status) {
-        documentDispatch({
+        documentFetchDispatch({
           type: "FETCH_DOCUMENTS_SUCCEEDED",
           payload: res.data,
         });
       } else {
-        documentDispatch({
+        documentFetchDispatch({
           type: "FETCH_DOCUMENTS_FAILED",
           payload: res.error,
         });

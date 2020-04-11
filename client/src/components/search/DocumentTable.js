@@ -44,7 +44,7 @@ const Table = ({ columns, data }) => {
 };
 
 export const DocumentTable = () => {
-  const { documentState: state } = useContext(
+  const { documentFetchState: state } = useContext(
     DocumentContext
   );
 
