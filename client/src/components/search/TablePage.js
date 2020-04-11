@@ -7,14 +7,13 @@ export const PageSelection = () => {
     DocumentContext
   );
   const currentPage = state.page;
-  const totalPage = state.pageCount;
+  const totalPage = state.totalPage;
 
+  const canPreviousPage = currentPage !== 1;
+  const canNextPage = currentPage !== totalPage;
   const gotoPage = (pageNumber) => {
     documentTableDispatch({ type: "UPDATE_PAGE", payload: pageNumber });
   };
-
-  const canPreviousPage = () => currentPage === 1;
-  const canNextPage = () => currentPage === totalPage;
 
   let pages = [];
   for (let pageNumber = 1; pageNumber <= totalPage; pageNumber++) {

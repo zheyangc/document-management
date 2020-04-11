@@ -1,7 +1,7 @@
 export const initialDocumentTableState = {
     page: 1,
-    pageSize: 10,
-    pageCount: 10,
+    pageSize: 20,
+    totalPage: 1,
     createDateFilter: null,
     userNameFilter: null,
     documentTypeFilter: null,
