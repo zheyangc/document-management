@@ -1,8 +1,9 @@
-import React, {useEffect, useContext} from "react";
+import React, { useEffect, useContext } from "react";
 import { DocumentTable } from "./DocumentTable";
 import { getDocuments } from "../../api/Documents";
 import { DocumentContext } from "../../contexts/DocumentContext";
-import { LoadingSpinner } from './LoadingSpinner';
+import { LoadingSpinner } from "./LoadingSpinner";
+import { PageSelection } from "./TablePage";
 
 export const Search = () => {
   const { documentFetchState: state, documentFetchDispatch } = useContext(
@@ -28,14 +29,12 @@ export const Search = () => {
     fetchData();
   }, []);
 
-
-  if (state.fetchStatus === "FETCHING"){
-    return <LoadingSpinner />
-  } else if (state.fetchStatus === "FETCHED_SUCCEEDED") {
-    return <DocumentTable />;
-  } else if (state.fetchStatus === "FETCHED_FAILED") {
-    return (<h1>FAILED</h1>);
-  } else  {
-    return null;
-  }
+  return (
+    <React.Fragment>
+      <PageSelection />
+      {state.fetchStatus === "FETCHING" && <LoadingSpinner />}
+      {state.fetchStatus === "FETCHED_SUCCEEDED" && <DocumentTable />}
+      {state.fetchStatus === "FETCHED_FAILED" && <h1>FAILED</h1>}
+    </React.Fragment>
+  );
 };
