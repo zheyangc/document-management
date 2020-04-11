@@ -1,5 +1,5 @@
 import React from "react";
-import { Pagination } from "react-bootstrap";
+import { Pagination, DropdownButton, Dropdown } from "react-bootstrap";
 
 export const TablePagination = ({
   tableState: {
@@ -10,23 +10,9 @@ export const TablePagination = ({
     gotoPage,
     nextPage,
     previousPage,
-    setPageSize,
-    state: { pageIndex, pageSize },
+    state: { pageIndex },
   },
 }) => {
-  let pages = [];
-  for (let pageNumber = 0; pageNumber < pageCount; pageNumber++) {
-    pages.push(
-      <Pagination.Item
-        key={pageNumber}
-        onClick={() => gotoPage(pageNumber)}
-        active={pageNumber === pageIndex}
-      >
-        {pageNumber + 1}
-      </Pagination.Item>
-    );
-  }
-
   return (
     <Pagination>
       <Pagination.First
@@ -35,12 +21,12 @@ export const TablePagination = ({
       />
       <Pagination.Prev
         onClick={() => previousPage()}
-        // disabled={!canPreviousPage}
+        disabled={!canPreviousPage}
       />
-      <Pagination.Next
-        onClick={() => nextPage()}
-        // disabled={!canNextPage}
-      />
+      <Pagination.Item>
+        {"第 " + (pageIndex + 1) + "/" + pageCount + " 页"}
+      </Pagination.Item>
+      <Pagination.Next onClick={() => nextPage()} disabled={!canNextPage} />
       <Pagination.Last
         onClick={() => gotoPage(pageCount - 1)}
         disabled={!canNextPage}

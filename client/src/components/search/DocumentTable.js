@@ -1,8 +1,10 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { useTable, useFilters, usePagination } from "react-table";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { DefaultColumnFilter, SelectColumnFilter } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
+import { TableSize } from "./TableSize";
+import { Table as StyledTable } from 'react-bootstrap';
 
 const Table = ({ columns, data }) => {
   // Use the state and functions returned from useTable to build your UI
@@ -28,8 +30,8 @@ const Table = ({ columns, data }) => {
   return (
     <React.Fragment>
       <TablePagination tableState={tableState}/>
-
-      <table {...getTableProps()}>
+      <TableSize tableState={tableState} />
+      <StyledTable responsive striped bordered hover {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -56,16 +58,16 @@ const Table = ({ columns, data }) => {
             );
           })}
         </tbody>
-      </table>
+      </StyledTable>
     </React.Fragment>
   );
 };
 
 export const DocumentTable = () => {
-  const { documentFetchState, documentTableDispatch } = useContext(
+  const { documentFetchState } = useContext(
     DocumentContext
   );
-  const data = documentFetchState.fetchResults.data;
+  const data = React.useMemo(() => documentFetchState.fetchResults.data,[]);
 
   const columns = React.useMemo(
     () => [
@@ -89,7 +91,6 @@ export const DocumentTable = () => {
       {
         Header: "创建时间",
         accessor: "createTime",
-        disableFilters: true,
       },
     ],
     []

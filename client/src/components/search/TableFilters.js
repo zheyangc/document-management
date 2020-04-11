@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from "react-bootstrap";
 
 export const DefaultColumnFilter = ({
   column: { filterValue, preFilteredRows, setFilter },
@@ -6,12 +7,12 @@ export const DefaultColumnFilter = ({
   const count = preFilteredRows.length
 
   return (
-    <input
+    <Form.Control
       value={filterValue || ''}
       onChange={e => {
         setFilter(e.target.value || undefined) // Set undefined to remove the filter entirely
       }}
-      placeholder={`Search ${count} records...`}
+      placeholder={`搜索${count}条记录`}
     />
   )
 }
@@ -33,7 +34,7 @@ export const SelectColumnFilter = ({
 
   // Render a multi-select box
   return (
-    <select
+    <Form.Control as="select"
       value={filterValue}
       onChange={e => {
         setFilter(e.target.value || undefined)
@@ -45,6 +46,6 @@ export const SelectColumnFilter = ({
           {option}
         </option>
       ))}
-    </select>
+    </Form.Control>
   )
 }
