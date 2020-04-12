@@ -11,7 +11,9 @@ export const DeleteConfirmation = () => {
   );
 
   const handleDeletion = () => {};
-  const handleCancel = () => {};
+  const handleCancel = () => {
+    documentTableDispatch({ type: "DELETE_ROWS_CANCELLED" });
+  };
   const show =
     documentTableState.deleteRows &&
     documentTableState.deleteRows.status === "TO_CONFIRM";
@@ -25,32 +27,32 @@ export const DeleteConfirmation = () => {
 
     return (
       <>
-        <Modal scrollable={true} show={show} onHide={handleCancel}>
-            <Modal.Header>
+        <Modal centered scrollable={true} show={show} onHide={handleCancel}>
+          <Modal.Header>
             {"确认删除这 " + deleteCount + " 条数据吗? 数据一旦删除不可恢复."}
-            </Modal.Header>
-            <Modal.Body>
-              <ul>
-                {deleteDocuments.map((document) => {
-                  let documentName = DocumentTypeName[document.documentType];
-                  let display =
-                    documentName +
-                    "-" +
-                    document.documentNumber +
-                    "-" +
-                    document.userName;
-                  return <li key={document._id}>{display}</li>;
-                })}
-              </ul>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="success" onClick={handleCancel}>
-                取消
-              </Button>
-              <Button variant="secondary" onClick={handleDeletion}>
-                确定
-              </Button>
-            </Modal.Footer>
+          </Modal.Header>
+          <Modal.Body>
+            <ul>
+              {deleteDocuments.map((document) => {
+                let documentName = DocumentTypeName[document.documentType];
+                let display =
+                  documentName +
+                  "-" +
+                  document.documentNumber +
+                  "-" +
+                  document.userName;
+                return <li key={document._id}>{display}</li>;
+              })}
+            </ul>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="success" onClick={handleCancel}>
+              取消
+            </Button>
+            <Button variant="light" onClick={handleDeletion}>
+              确定
+            </Button>
+          </Modal.Footer>
         </Modal>
       </>
     );

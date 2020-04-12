@@ -35,6 +35,12 @@ export const documentTableReducer = (state, action) => {
         }
       }
     }
+    case 'DELETE_ROWS_CANCELLED': {
+      return {
+        ...state,
+        deleteRows: null
+      }
+    }
     default:
       return { ...state };
   }
