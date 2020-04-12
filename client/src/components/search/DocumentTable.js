@@ -1,9 +1,35 @@
 import React, { useContext } from "react";
-import { useTable, useFilters, usePagination } from "react-table";
+import { 
+  useTable,
+  usePagination,
+  useSortBy,
+  useFilters,
+  useGroupBy,
+  useExpanded,
+  useRowSelect, 
+} from "react-table";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { DefaultColumnFilter, SelectColumnFilter } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
-import { Table as StyledTable } from 'react-bootstrap';
+import { TableSelection } from './TableSelection'
+import { Table as StyledTable, FormCheck } from "react-bootstrap";
+
+const IndeterminateCheckbox = React.forwardRef(
+  ({ indeterminate, ...rest }, ref) => {
+    const defaultRef = React.useRef();
+    const resolvedRef = ref || defaultRef;
+
+    React.useEffect(() => {
+      resolvedRef.current.indeterminate = indeterminate;
+    }, [resolvedRef, indeterminate]);
+
+    return (
+      <>
+        <FormCheck ref={resolvedRef} {...rest} />
+      </>
+    );
+  }
+);
 
 const Table = ({ columns, data }) => {
   // Use the state and functions returned from useTable to build your UI
@@ -11,10 +37,45 @@ const Table = ({ columns, data }) => {
     {
       columns,
       data,
-      defaultColumn: { Filter: DefaultColumnFilter },
+      defaultColumn: {
+        Filter: DefaultColumnFilter,
+      },
+      disableMultiSort: true,
     },
     useFilters,
-    usePagination
+    useGroupBy,
+    useSortBy,
+    useExpanded,
+    usePagination,
+    useRowSelect,
+    // Here we will use a plugin to add our selection column
+    (hooks) => {
+      hooks.visibleColumns.push((columns) => {
+        return [
+          {
+            id: "selection",
+            // Make this column a groupByBoundary. This ensures that groupBy columns
+            // are placed after it
+            groupByBoundary: true,
+            // The header can use the table's getToggleAllRowsSelectedProps method
+            // to render a checkbox
+            Header: ({ getToggleAllRowsSelectedProps }) => (
+              <div>
+                <IndeterminateCheckbox {...getToggleAllRowsSelectedProps()} />
+              </div>
+            ),
+            // The cell can use the individual row's getToggleRowSelectedProps method
+            // to the render a checkbox
+            Cell: ({ row }) => (
+              <div>
+                <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
+              </div>
+            ),
+          },
+          ...columns,
+        ];
+      });
+    }
   );
 
   const {
@@ -22,20 +83,44 @@ const Table = ({ columns, data }) => {
     getTableBodyProps,
     headerGroups,
     prepareRow,
-    page,
+    page, // Instead of using 'rows', we'll use page,
+    // which has only the rows for the active page
+
+    // The rest of these things are super handy, too ;)
+    canPreviousPage,
+    canNextPage,
+    pageOptions,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    state: {
+      pageIndex,
+      pageSize,
+      sortBy,
+      groupBy,
+      expanded,
+      filters,
+      selectedRowIds,
+    },
   } = tableState;
 
   // Render the UI for your table
   return (
     <React.Fragment>
-      <TablePagination tableState={tableState}/>
+      <TablePagination tableState={tableState} />
+      <TableSelection tableState={tableState} />
       <StyledTable responsive striped bordered hover {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <th {...column.getHeaderProps()}>
-                  {column.render("Header")}
+                  <span {...column.getSortByToggleProps()}>
+                    {column.render("Header")}
+                    {column.isSorted ? (column.isSortedDesc ? " ▽" : " △") : ""}
+                  </span>
                   <div>{column.canFilter ? column.render("Filter") : null}</div>
                 </th>
               ))}
@@ -62,10 +147,8 @@ const Table = ({ columns, data }) => {
 };
 
 export const DocumentTable = () => {
-  const { documentFetchState } = useContext(
-    DocumentContext
-  );
-  const data = React.useMemo(() => documentFetchState.fetchResults.data,[]);
+  const { documentFetchState } = useContext(DocumentContext);
+  const data = React.useMemo(() => documentFetchState.fetchResults.data, []);
 
   const columns = React.useMemo(
     () => [

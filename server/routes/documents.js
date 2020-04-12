@@ -6,7 +6,7 @@ var Document = require("../models/document");
 router.get("/", async function (req, res) {
   var query = req.query;
   try {
-    let documents = await Document.find(query, "-_id -__v").sort({
+    let documents = await Document.find(query, "-__v").sort({
       createTime: -1,
       documentNumber: -1,
     });
