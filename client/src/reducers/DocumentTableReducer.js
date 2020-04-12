@@ -30,8 +30,8 @@ export const documentTableReducer = (state, action) => {
       return {
         ...state,
         deleteRows: {
-          deleteRowsStatus: "TO_CONFIRM",
-          deleteRowsData: action.payload,
+          status: "TO_CONFIRM",
+          data: action.payload,
         }
       }
     }

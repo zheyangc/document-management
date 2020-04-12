@@ -12,6 +12,7 @@ import { DocumentContext } from "../../contexts/DocumentContext";
 import { DefaultColumnFilter, SelectColumnFilter } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
 import { TableSelection } from "./TableSelection";
+import { DeleteConfirmation } from "./DeleteConfirmation";
 import { Table as BSTable, FormCheck } from "react-bootstrap";
 import { TableContextProvider } from "../../contexts/TableContext";
 
@@ -110,6 +111,7 @@ const Table = ({ columns, data }) => {
   // Render the UI for your table
   return (
     <TableContextProvider>
+      <DeleteConfirmation />
       <TablePagination tableState={tableState} />
       <TableSelection tableState={tableState} />
       <BSTable responsive striped bordered hover {...getTableProps()}>
