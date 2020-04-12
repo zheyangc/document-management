@@ -61,12 +61,12 @@ export const TablePagination = ({
       <ButtonGroup aria-label="Second group">
         <DropdownButton
           id="dropdown-basic-button"
-          title={"每页展示 " + pageSize + " 条内容"}
+          title={"每页显示 " + pageSize + " 条内容"}
           variant="light"
         >
           {pageSizeOptions.map((sizeOption) => (
             <Dropdown.Item onClick={() => setPageSize(sizeOption)}>
-              {"每页展示 " + sizeOption + " 条内容"}
+              {"每页显示 " + sizeOption + " 条内容"}
             </Dropdown.Item>
           ))}
         </DropdownButton>
