@@ -1,52 +1,59 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
-var Document = require('../models/document');
+var Document = require("../models/document");
 
 // Display all the documents
-router.get('/', function(req, res){
+router.get("/", async function (req, res) {
   var query = req.query;
-  Document.find(query, "-_id -__v")
-    .sort({createTime: -1})
-    .catch((err) => {
-      res.send({
-        msg: "failed to get documents",
-        err: err
-      });
-    })
-    .then((documents) => {
-      res.send({ documents });
+  try {
+    let documents = await Document.find(query, "-_id -__v").sort({
+      createTime: -1,
+      documentNumber: -1,
     });
+    res.send({ documents });
+  } catch (err) {
+    res.send({
+      msg: "failed to get documents",
+      err: err,
+    });
+  }
 });
 
 // Persist Documents
 // parameters: documentType, userName, count
-router.post('/', function (req, res) {
-  var { count, userName, documentType } = req.body;
-  var newDocuments = [];
+router.post("/", async function (req, res) {
+  let { count, userName, documentType } = req.body;
+  let lastDocument;
 
-  Document.count({ documentType: documentType })
+  try {
+    lastDocument = await Document.findOne({ documentType: documentType })
+      .sort({ documentNumber: -1 })
+      .exec();
+  } catch (err) {
+    res.send({
+      msg: "failed to get document count",
+      err: err,
+    });
+    return;
+  }
+
+  let newDocuments = [];
+  let existingCount = lastDocument ? lastDocument.documentNumber : 0;
+  for (var c = 1; c <= count; c++) {
+    newDocuments.push({
+      documentType: documentType,
+      documentNumber: existingCount + c,
+      userName: userName,
+    });
+  }
+
+  Document.insertMany(newDocuments)
+    .then((documents) => res.send(documents))
     .catch((err) => {
       res.send({
-        msg: "failed to get document count",
-        err: err
+        msg: "failed to create document number",
+        err: err,
       });
-    })
-    .then((existingCount) => {
-      for (var c = 1; c <= count; c++) {
-        newDocuments.push({
-          documentType: documentType,
-          documentNumber: existingCount + c,
-          userName: userName,
-        });
-      }
-      Document.insertMany(newDocuments)
-        .then((documents) => res.send(documents))
-        .catch((err) => {
-          res.send({
-            msg: "failed to create document number",
-            err: err
-          });
-        });
     });
 });
 
