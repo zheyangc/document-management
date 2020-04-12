@@ -20,6 +20,24 @@ export const submitDocuments = async (req) => {
   }
 };
 
+export const deleteDocuments = async (req) => {
+  try {
+    let resp = await axios.delete(
+      ConfigValues.DOCUMENT_SERVICE_PATH + ":3001/documents",
+      req
+    );
+    return {
+      status: true,
+      data: resp.data,
+    };
+  } catch (err) {
+    return {
+      status: false,
+      error: err,
+    };
+  }
+};
+
 export const getDocuments = async() => {
   try {
     let resp = await axios.get(

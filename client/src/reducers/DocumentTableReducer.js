@@ -1,31 +1,10 @@
 export const initialDocumentTableState = {
-    page: null,
-    filter: null,
-    columns: null,
     deleteRows: null
 };
 
 export const documentTableReducer = (state, action) => {
   console.log(action);
   switch (action.type) {
-    case 'UPDATE_PAGE': {
-      return {
-        ...state,
-        page: action.payload,
-      }
-    }
-    case 'UPDATE_FILTER': {
-      return {
-        ...state,
-        filter: action.payload,
-      }
-    }
-    case 'UPDATE_COLUMNS': {
-      return {
-        ...state,
-        columns: action.payload,
-      }
-    }
     case 'DELETE_ROWS_TO_CONFIRM': {
       return {
         ...state,
@@ -39,6 +18,32 @@ export const documentTableReducer = (state, action) => {
       return {
         ...state,
         deleteRows: null
+      }
+    }
+    case 'DELETING_ROWS': {
+      return {
+        ...state,
+        deleteRows: {
+          status: "DELETING",
+        }
+      }
+    }
+    case 'DELETED_ROWS_SUCCEEDED': {
+      return {
+        ...state,
+        deleteRows: {
+          status: "DELETED_SUCCEEDED",
+          data: action.payload
+        }
+      }
+    }
+    case 'DELETED_ROWS_FAILED': {
+      return {
+        ...state,
+        deleteRows: {
+          status: "DELETED_FAILED",
+          error: action.payload
+        }
       }
     }
     default:

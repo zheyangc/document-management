@@ -10,7 +10,9 @@ export const DeleteConfirmation = () => {
     TableContext
   );
 
-  const handleDeletion = () => {};
+  const handleDeletion = () => {
+    documentTableDispatch({ type: "DELETING_ROWS" });
+  };
   const handleCancel = () => {
     documentTableDispatch({ type: "DELETE_ROWS_CANCELLED" });
   };
