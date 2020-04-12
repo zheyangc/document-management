@@ -13,7 +13,7 @@ import { DefaultColumnFilter, SelectColumnFilter } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
 import { TableSelection } from "./TableSelection";
 import { DeleteResult } from "./DeleteResult";
-import { DeleteConfirmation } from "./DeleteConfirmation";
+import { DeleteRows } from "./DeleteRows";
 import { Table as BSTable, FormCheck } from "react-bootstrap";
 import { TableContextProvider } from "../../contexts/TableContext";
 
@@ -112,7 +112,7 @@ const Table = ({ columns, data }) => {
   // Render the UI for your table
   return (
     <TableContextProvider>
-      <DeleteConfirmation />
+      <DeleteRows />
       <TablePagination tableState={tableState} />
       <TableSelection tableState={tableState} />
       <DeleteResult />

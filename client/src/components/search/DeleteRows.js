@@ -4,7 +4,7 @@ import { DocumentContext } from "../../contexts/DocumentContext";
 import { Modal, Button, ModalDialog } from "react-bootstrap";
 import { DocumentTypeName } from "../../constant/DocumentTypes";
 
-export const DeleteConfirmation = () => {
+export const DeleteRows = () => {
   const { documentFetchState } = useContext(DocumentContext);
   const { documentTableState, documentTableDispatch } = useContext(
     TableContext
