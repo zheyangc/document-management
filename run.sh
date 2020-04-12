@@ -57,7 +57,7 @@ case "$ACTION" in
 		cd client
 		sudo npm install
 		cd ../server 
-		sudo npm instal
+		sudo npm install
 		cd ..
 		echo "starting service..."
 		eval "$PM2_START_COMMAND" 
