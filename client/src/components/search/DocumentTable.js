@@ -1,18 +1,19 @@
 import React, { useContext } from "react";
-import { 
+import {
   useTable,
   usePagination,
   useSortBy,
   useFilters,
   useGroupBy,
   useExpanded,
-  useRowSelect, 
+  useRowSelect,
 } from "react-table";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { DefaultColumnFilter, SelectColumnFilter } from "./TableFilters";
 import { TablePagination } from "./TablePagination";
-import { TableSelection } from './TableSelection'
-import { Table as StyledTable, FormCheck } from "react-bootstrap";
+import { TableSelection } from "./TableSelection";
+import { Table as BSTable, FormCheck } from "react-bootstrap";
+import { TableContextProvider } from "../../contexts/TableContext";
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -108,10 +109,10 @@ const Table = ({ columns, data }) => {
 
   // Render the UI for your table
   return (
-    <React.Fragment>
+    <TableContextProvider>
       <TablePagination tableState={tableState} />
       <TableSelection tableState={tableState} />
-      <StyledTable responsive striped bordered hover {...getTableProps()}>
+      <BSTable responsive striped bordered hover {...getTableProps()}>
         <thead>
           {headerGroups.map((headerGroup) => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -141,8 +142,8 @@ const Table = ({ columns, data }) => {
             );
           })}
         </tbody>
-      </StyledTable>
-    </React.Fragment>
+      </BSTable>
+    </TableContextProvider>
   );
 };
 

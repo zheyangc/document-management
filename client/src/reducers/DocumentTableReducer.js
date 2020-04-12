@@ -2,6 +2,7 @@ export const initialDocumentTableState = {
     page: null,
     filter: null,
     columns: null,
+    deleteRows: null
 };
 
 export const documentTableReducer = (state, action) => {
@@ -23,6 +24,15 @@ export const documentTableReducer = (state, action) => {
       return {
         ...state,
         columns: action.payload,
+      }
+    }
+    case 'DELETE_ROWS_TO_CONFIRM': {
+      return {
+        ...state,
+        deleteRows: {
+          deleteRowsStatus: "TO_CONFIRM",
+          deleteRowsData: action.payload,
+        }
       }
     }
     default:

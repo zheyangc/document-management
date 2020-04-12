@@ -64,7 +64,7 @@ export const TablePagination = ({
           variant="light"
         >
           {pageSizeOptions.map((sizeOption) => (
-            <Dropdown.Item onClick={() => setPageSize(sizeOption)}>
+            <Dropdown.Item key={sizeOption} onClick={() => setPageSize(sizeOption)}>
               {"每页显示 " + sizeOption + " 条内容"}
             </Dropdown.Item>
           ))}

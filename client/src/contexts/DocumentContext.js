@@ -4,10 +4,6 @@ import {
   documentFetchReducer,
   initialDocumentFetchState,
 } from "../reducers/DocumentFetchReducer";
-import {
-  documentTableReducer,
-  initialDocumentTableState,
-} from '../reducers/DocumentTableReducer'
 
 export const DocumentContext = createContext();
 
@@ -17,10 +13,6 @@ export const DocumentContextProvider = (props) => {
     documentFetchReducer,
     initialDocumentFetchState
   );
-  const [documentTableState, documentTableDispatch] = useReducer(
-    documentTableReducer,
-    initialDocumentTableState,
-  );
 
   return (
     <DocumentContext.Provider
@@ -29,8 +21,6 @@ export const DocumentContextProvider = (props) => {
         formDispatch,
         documentFetchState,
         documentFetchDispatch,
-        documentTableState, 
-        documentTableDispatch,
       }}
     >
       {props.children}
