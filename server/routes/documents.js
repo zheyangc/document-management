@@ -19,6 +19,24 @@ router.get("/", async function (req, res) {
   }
 });
 
+// Display all the documents
+router.delete("/", async function (req, res) {
+  let documentsToDelete = req.body;
+  let idsToDelete = documentsToDelete.map(doc => doc._id);
+  
+  try {
+    let documents = await Document.deleteMany({
+      _id: { $in: idsToDelete}
+    });
+    res.send({ documents });
+  } catch (err) {
+    res.send({
+      msg: "failed to get documents",
+      err: err,
+    });
+  }
+});
+
 // Persist Documents
 // parameters: documentType, userName, count
 router.post("/", async function (req, res) {
