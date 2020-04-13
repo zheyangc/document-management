@@ -1,6 +1,6 @@
 {
-  "short_name": "Document Numbering",
-  "name": "Simple document numbering system",
+  "short_name": "document-service",
+  "name": "document-service",
   "icons": [],
   "start_url": ".",
   "display": "standalone",
