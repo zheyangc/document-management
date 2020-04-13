@@ -3,15 +3,30 @@ import { TableContext } from "../../contexts/TableContext";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { Modal, Button } from "react-bootstrap";
 import { LoadingSpinner } from "./LoadingSpinner";
+import { getDocuments } from "../../api/Documents";
 
 export const DeleteResult = () => {
-  const { documentFetchState } = useContext(DocumentContext);
+  const { documentFetchDispatch } = useContext(DocumentContext);
   const { documentTableState, documentTableDispatch } = useContext(
     TableContext
   );
 
-  const handleTableRefresh = () => {};
-  const cancelFailed = () => {};
+  const handleTableRefresh = async () => {
+    documentTableDispatch({type: "RESET"});
+    documentFetchDispatch({ type: "FETCH_DOCUMENTS" });
+      const res = await getDocuments();
+      if (res.status) {
+        documentFetchDispatch({
+          type: "FETCH_DOCUMENTS_SUCCEEDED",
+          payload: res.data,
+        });
+      } else {
+        documentFetchDispatch({
+          type: "FETCH_DOCUMENTS_FAILED",
+          payload: res.error,
+        });
+      }
+  };
 
   const show =
     documentTableState.deleteRows &&
@@ -46,7 +61,7 @@ export const DeleteResult = () => {
               </Button>
             )}
             {documentTableState.deleteRows.status === "DELETED_FAILED" && (
-              <Button variant="success" onClick={cancelFailed}>
+              <Button variant="success" onClick={handleTableRefresh}>
                 取消
               </Button>
             )}

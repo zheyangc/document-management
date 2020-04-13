@@ -46,6 +46,9 @@ export const documentTableReducer = (state, action) => {
         }
       }
     }
+    case 'RESET': {
+      return initialDocumentTableState
+    }
     default:
       return { ...state };
   }
