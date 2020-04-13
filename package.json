@@ -2,10 +2,15 @@
   "name": "document-management",
   "version": "1.0.0",
   "scripts": {
-    "server": "nodemon server.js",
+    "install-client": "npm install --prefix client",
+    "install-server": "npm install",
+    "install-all": "npm run install-client && npm run install-server",
     "client": "npm start --prefix client",
+    "server": "nodemon server.js",
     "start": "concurrently \"npm run server\" \"npm run client\"",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "build-client": "npm run build --prefix client",
+    "prod": "npm run install-all && npm run build-client && node server"
   },
   "dependencies": {
     "concurrently": "^5.1.0",
