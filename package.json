@@ -1,8 +1,6 @@
 {
   "name": "document-management",
   "version": "1.0.0",
-  "description": "A Document Management Web App",
-  "main": "server.js",
   "scripts": {
     "start": "nodemon server.js"
   },
