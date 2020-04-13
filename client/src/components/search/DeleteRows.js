@@ -1,8 +1,9 @@
 import React, { useContext } from "react";
 import { TableContext } from "../../contexts/TableContext";
 import { DocumentContext } from "../../contexts/DocumentContext";
-import { Modal, Button, ModalDialog } from "react-bootstrap";
+import { Modal, Button } from "react-bootstrap";
 import { DocumentTypeName } from "../../constant/DocumentTypes";
+import { deleteDocuments } from "../../api/Documents";
 
 export const DeleteRows = () => {
   const { documentFetchState } = useContext(DocumentContext);
@@ -10,8 +11,14 @@ export const DeleteRows = () => {
     TableContext
   );
 
-  const handleDeletion = () => {
+  const handleDeletion = async (documentsToDelete) => {
     documentTableDispatch({ type: "DELETING_ROWS" });
+    let res = await deleteDocuments(documentsToDelete);
+    if (res.status) {
+      documentTableDispatch({ type: "DELETED_ROWS_SUCCEEDED", payload: res.data });
+    } else {
+      documentTableDispatch({ type: "DELETED_ROWS_FAILED", payload: res.error });
+    }
   };
   const handleCancel = () => {
     documentTableDispatch({ type: "DELETE_ROWS_CANCELLED" });
@@ -22,9 +29,9 @@ export const DeleteRows = () => {
 
   if (show) {
     const deleteCount = Object.keys(documentTableState.deleteRows.data).length;
-    const deleteDocuments = [];
+    const documentsToDelete = [];
     for (let index in documentTableState.deleteRows.data) {
-      deleteDocuments.push(documentFetchState.fetchResults.data[index]);
+      documentsToDelete.push(documentFetchState.fetchResults.data[index]);
     }
 
     return (
@@ -35,7 +42,7 @@ export const DeleteRows = () => {
           </Modal.Header>
           <Modal.Body>
             <ul>
-              {deleteDocuments.map((document) => {
+              {documentsToDelete.map((document) => {
                 let documentName = DocumentTypeName[document.documentType];
                 let display =
                   documentName +
@@ -51,7 +58,7 @@ export const DeleteRows = () => {
             <Button variant="success" onClick={handleCancel}>
               取消
             </Button>
-            <Button variant="light" onClick={handleDeletion}>
+            <Button variant="light" onClick={() => handleDeletion(documentsToDelete)}>
               确定
             </Button>
           </Modal.Footer>

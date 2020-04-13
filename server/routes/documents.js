@@ -22,9 +22,8 @@ router.get("/", async function (req, res) {
 // Display all the documents
 router.delete("/", async function (req, res) {
   let documentsToDelete = req.body;
-  let idsToDelete = documentsToDelete.map(doc => doc._id);
-  
   try {
+    let idsToDelete = documentsToDelete.map(doc => doc._id);
     let documents = await Document.deleteMany({
       _id: { $in: idsToDelete}
     });
