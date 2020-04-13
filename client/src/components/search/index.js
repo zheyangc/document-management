@@ -26,7 +26,7 @@ export const Search = () => {
       }
     }
     fetchData();
-  }, []);
+  }, [documentFetchDispatch]);
 
   return (
     <React.Fragment>

@@ -8,15 +8,6 @@
 
 `$ sudo apt install -y nodejs`
 
-
-## Install Nodemon
-
-`$ sudo npm install -g nodemon` 
-
 ## Install MongoDB or using mongoDB cloud
 
-
-
-
-
-
+## Install PM2

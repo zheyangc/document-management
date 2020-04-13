@@ -30,7 +30,7 @@ router.delete("/", async function (req, res) {
     res.send({ documents });
   } catch (err) {
     res.send({
-      msg: "failed to get documents",
+      msg: "failed to delete documents",
       err: err,
     });
   }
