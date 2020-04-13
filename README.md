@@ -9,3 +9,5 @@
 `$ sudo apt install -y nodejs`
 
 ## Install MongoDB or using mongoDB cloud
+
+## Install PM2

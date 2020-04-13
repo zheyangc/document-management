@@ -11,5 +11,10 @@ server.use(logger("dev"));
 server.use(express.json());
 server.use("/documents", documentRouter);
 
-const port = 3001;
+server.use(express.static(path.join(__dirname, "./client/build")));
+server.get('/*', function (req, res) {
+  res.sendFile(path.join(__dirname, './client/build', 'index.html'));
+});
+
+const port = 5000;
 server.listen(port);

@@ -17,7 +17,6 @@ export const submitDocuments = async (req) => {
 };
 
 export const deleteDocuments = async (req) => {
-  console.log(req);
   try {
     let resp = await axios.delete("/documents", { data: req });
     return {
