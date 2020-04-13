@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true});
+mongoose.connect("mongodb://localhost:27017/document-db", {useNewUrlParser: true, useUnifiedTopology: true});
 
 var db = mongoose.connection;
 db.on("error", function (error) {  
