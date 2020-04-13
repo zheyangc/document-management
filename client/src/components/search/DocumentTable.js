@@ -14,7 +14,7 @@ import { TablePagination } from "./TablePagination";
 import { TableSelection } from "./TableSelection";
 import { DeleteResult } from "./DeleteResult";
 import { DeleteRows } from "./DeleteRows";
-import { Table as BSTable, FormCheck } from "react-bootstrap";
+import { Table as BSTable } from "react-bootstrap";
 import { TableContextProvider } from "../../contexts/TableContext";
 
 const IndeterminateCheckbox = React.forwardRef(
@@ -28,7 +28,7 @@ const IndeterminateCheckbox = React.forwardRef(
 
     return (
       <>
-        <FormCheck ref={resolvedRef} {...rest} />
+        <input type="checkbox" ref={resolvedRef} {...rest} />
       </>
     );
   }
