@@ -16,6 +16,7 @@ import { DeleteResult } from "./DeleteResult";
 import { DeleteRows } from "./DeleteRows";
 import { Table as BSTable } from "react-bootstrap";
 import { TableContextProvider } from "../../contexts/TableContext";
+import { DownloadTable } from "./DownloadTable";
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -120,13 +121,14 @@ const Table = ({ columns, data }) => {
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                  );
-                })}
+                    );
+                  })}
               </tr>
             );
           })}
         </tbody>
       </BSTable>
+<DownloadTable />
     </TableContextProvider>
   );
 };

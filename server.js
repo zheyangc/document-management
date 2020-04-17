@@ -8,7 +8,7 @@ const documentRouter = require("./routes/documents");
 const server = express();
 
 server.use(logger("dev"));
-server.use(express.json());
+server.use(express.json({limit: '50mb'}));
 server.use("/documents", documentRouter);
 
 server.use(express.static(path.join(__dirname, "./client/build")));
