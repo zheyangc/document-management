@@ -121,14 +121,14 @@ const Table = ({ columns, data }) => {
                 {row.cells.map((cell) => {
                   return (
                     <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
-                    );
-                  })}
+                  );
+                })}
               </tr>
             );
           })}
         </tbody>
       </BSTable>
-<DownloadTable />
+      <DownloadTable />
     </TableContextProvider>
   );
 };
