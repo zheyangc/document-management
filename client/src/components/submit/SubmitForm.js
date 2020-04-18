@@ -3,13 +3,21 @@ import { Form, Button } from "react-bootstrap";
 import { DocumentTypes } from "../../constant/DocumentTypes";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { submitDocuments } from "../../api/Documents";
+import {
+  UPDATE_FORM,
+  SUBMIT_FORM,
+  SUBMIT_FORM_SUCCEEDED,
+  SUBMIT_FORM_FAILED,
+} from "../../reducers/DocumentSubmitReducer";
 
 export const SubmitForm = () => {
-  const { formState: state, formDispatch } = useContext(DocumentContext);
+  const { documentSubmitState: state, documentSubmitDispatch } = useContext(
+    DocumentContext
+  );
 
   const handleChange = (event) => {
-    formDispatch({
-      type: "UPDATE_FORM",
+    documentSubmitDispatch({
+      type: UPDATE_FORM,
       payload: {
         ...state,
         [event.target.name]: event.target.value,
@@ -18,13 +26,16 @@ export const SubmitForm = () => {
   };
 
   const handleSubmit = async () => {
-    formDispatch({ type: "SUBMIT_FORM", payload: state });
+    documentSubmitDispatch({ type: SUBMIT_FORM, payload: state });
     let res = await submitDocuments(state);
     if (res.status) {
-      formDispatch({ type: "SUBMIT_FORM_SUCCEEDED", payload: res.data });
+      documentSubmitDispatch({
+        type: SUBMIT_FORM_SUCCEEDED,
+        payload: res.data,
+      });
     } else {
-      formDispatch({
-        type: "SUBMIT_FORM_FAILED",
+      documentSubmitDispatch({
+        type: SUBMIT_FORM_FAILED,
         payload: res.error.toString(),
       });
     }

@@ -1,5 +1,8 @@
 import React, { createContext, useReducer } from "react";
-import { formReducer, initialFormState } from "../reducers/FormReducer";
+import {
+  documentSubmitReducer,
+  initialState as initialDocumentSubmitState,
+} from "../reducers/DocumentSubmitReducer";
 import {
   documentFetchReducer,
   initialDocumentFetchState,
@@ -8,7 +11,10 @@ import {
 export const DocumentContext = createContext();
 
 export const DocumentContextProvider = (props) => {
-  const [formState, formDispatch] = useReducer(formReducer, initialFormState);
+  const [documentSubmitState, documentSubmitDispatch] = useReducer(
+    documentSubmitReducer,
+    initialDocumentSubmitState
+  );
   const [documentFetchState, documentFetchDispatch] = useReducer(
     documentFetchReducer,
     initialDocumentFetchState
@@ -17,8 +23,8 @@ export const DocumentContextProvider = (props) => {
   return (
     <DocumentContext.Provider
       value={{
-        formState,
-        formDispatch,
+        documentSubmitState,
+        documentSubmitDispatch,
         documentFetchState,
         documentFetchDispatch,
       }}
