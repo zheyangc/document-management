@@ -3,6 +3,12 @@ import { DocumentTable } from "./DocumentTable";
 import { getDocuments } from "../../api/Documents";
 import { DocumentContext } from "../../contexts/DocumentContext";
 import { LoadingSpinner } from "./LoadingSpinner";
+import {
+  FETCH_DOCUMENTS,
+  FETCH_STATUS,
+  FETCH_DOCUMENTS_SUCCEEDED,
+  FETCH_DOCUMENTS_FAILED,
+} from "../../reducers/DocumentFetchReducer";
 
 export const Search = () => {
   const { documentFetchState: state, documentFetchDispatch } = useContext(
@@ -11,16 +17,16 @@ export const Search = () => {
 
   useEffect(() => {
     async function fetchData() {
-      documentFetchDispatch({ type: "FETCH_DOCUMENTS" });
+      documentFetchDispatch({ type: FETCH_DOCUMENTS });
       const res = await getDocuments();
       if (res.status) {
         documentFetchDispatch({
-          type: "FETCH_DOCUMENTS_SUCCEEDED",
+          type: FETCH_DOCUMENTS_SUCCEEDED,
           payload: res.data,
         });
       } else {
         documentFetchDispatch({
-          type: "FETCH_DOCUMENTS_FAILED",
+          type: FETCH_DOCUMENTS_FAILED,
           payload: res.error,
         });
       }
@@ -30,9 +36,13 @@ export const Search = () => {
 
   return (
     <React.Fragment>
-      {state.fetchStatus === "FETCHING" && <LoadingSpinner />}
-      {state.fetchStatus === "FETCHED_SUCCEEDED" && <DocumentTable />}
-      {state.fetchStatus === "FETCHED_FAILED" && <h1>FAILED</h1>}
+      {state.fetchStatus === FETCH_STATUS.FETCHING && <LoadingSpinner />}
+      {state.fetchStatus === FETCH_STATUS.FETCHED_SUCCEEDED && (
+        <DocumentTable />
+      )}
+      {state.fetchStatus === FETCH_STATUS.FETCH_DOCUMENTS_FAILED && (
+        <h1>FAILED</h1>
+      )}
     </React.Fragment>
   );
 };

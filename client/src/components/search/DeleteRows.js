@@ -15,9 +15,15 @@ export const DeleteRows = () => {
     documentTableDispatch({ type: "DELETING_ROWS" });
     let res = await deleteDocuments(documentsToDelete);
     if (res.status) {
-      documentTableDispatch({ type: "DELETED_ROWS_SUCCEEDED", payload: res.data });
+      documentTableDispatch({
+        type: "DELETED_ROWS_SUCCEEDED",
+        payload: res.data,
+      });
     } else {
-      documentTableDispatch({ type: "DELETED_ROWS_FAILED", payload: res.error });
+      documentTableDispatch({
+        type: "DELETED_ROWS_FAILED",
+        payload: res.error,
+      });
     }
   };
   const handleCancel = () => {
@@ -31,7 +37,7 @@ export const DeleteRows = () => {
     const deleteCount = Object.keys(documentTableState.deleteRows.data).length;
     const documentsToDelete = [];
     for (let index in documentTableState.deleteRows.data) {
-      documentsToDelete.push(documentFetchState.fetchResults.data[index]);
+      documentsToDelete.push(documentFetchState.data[index]);
     }
 
     return (
@@ -58,7 +64,10 @@ export const DeleteRows = () => {
             <Button variant="success" onClick={handleCancel}>
               取消
             </Button>
-            <Button variant="light" onClick={() => handleDeletion(documentsToDelete)}>
+            <Button
+              variant="light"
+              onClick={() => handleDeletion(documentsToDelete)}
+            >
               确定
             </Button>
           </Modal.Footer>

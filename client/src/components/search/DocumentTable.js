@@ -135,8 +135,8 @@ const Table = ({ columns, data }) => {
 
 export const DocumentTable = () => {
   const { documentFetchState } = useContext(DocumentContext);
-  const data = React.useMemo(() => documentFetchState.fetchResults.data, [
-    documentFetchState.fetchResults.data,
+  const data = React.useMemo(() => documentFetchState.data, [
+    documentFetchState.data,
   ]);
 
   const columns = React.useMemo(
