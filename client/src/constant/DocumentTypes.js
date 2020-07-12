@@ -11,12 +11,16 @@ export const DocumentTypes = [
     type: "songDaHuiZheng",
     name: "送达回证",
   },
+  {
+    type: "jianYiChengXuJueDingShu",
+    name: "简易程序决定书",
+  },
 ];
 
-const arrayToMap = array => {
+const arrayToMap = (array) => {
   let obj = {};
-  array.forEach(item => {
-      obj[item.type] = item.name;
+  array.forEach((item) => {
+    obj[item.type] = item.name;
   });
   return obj;
 };
