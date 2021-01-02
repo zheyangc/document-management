@@ -15,6 +15,18 @@ export const DocumentTypes = [
     type: "jianYiChengXuJueDingShu",
     name: "简易程序决定书",
   },
+  {
+    type: "zeLingXianGai",
+    name: "责令限改(责令改正)",
+  },
+  {
+    type: "zeLingTingZhi",
+    name: "责令停止",
+  },
+  {
+    type: "jieShouDiaoCha",
+    name: "接受调查",
+  },
 ];
 
 const arrayToMap = (array) => {
