@@ -17,6 +17,7 @@ import { DeleteRows } from "./DeleteRows";
 import { Table as BSTable } from "react-bootstrap";
 import { TableContextProvider } from "../../contexts/TableContext";
 import { DownloadTable } from "./DownloadTable";
+import { UploadTable } from "./UploadTable";
 
 const IndeterminateCheckbox = React.forwardRef(
   ({ indeterminate, ...rest }, ref) => {
@@ -129,6 +130,7 @@ const Table = ({ columns, data }) => {
         </tbody>
       </BSTable>
       <DownloadTable />
+      <UploadTable />
     </TableContextProvider>
   );
 };
