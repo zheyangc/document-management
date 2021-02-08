@@ -29,7 +29,7 @@ export const DocumentTypes = [
   },
 ];
 
-const arrayToMap = (array) => {
+const typeToNameMap = (array) => {
   let obj = {};
   array.forEach((item) => {
     obj[item.type] = item.name;
@@ -37,4 +37,13 @@ const arrayToMap = (array) => {
   return obj;
 };
 
-export const DocumentTypeName = arrayToMap(DocumentTypes);
+const nameToTypeMap = (array) => {
+  let obj = {};
+  array.forEach((item) => {
+    obj[item.name] = item.type;
+  });
+  return obj;
+};
+
+export const DocumentTypeName = typeToNameMap(DocumentTypes);
+export const DocumentNameType = nameToTypeMap(DocumentTypes);

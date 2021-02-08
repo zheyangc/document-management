@@ -1,5 +1,10 @@
-import React, { useState, useReducer } from "react";
+import React, { useState, useReducer, useContext } from "react";
 import { Button, Modal, Spinner } from "react-bootstrap";
+import { DocumentContext } from "../../contexts/DocumentContext";
+import { getDocuments, uploadDocument } from "../../api/Documents";
+import { DocumentNameType } from "../../constant/DocumentTypes";
+import Papa from "papaparse";
+import moment from "moment";
 
 const TO_UPLOAD_DOCUMENT = "TO_UPLOAD_DOCUMENT";
 const UPLOADING_DOCUMENTS = "UPLOADING_DOCUMENTS";
@@ -53,8 +58,8 @@ const documentUploadReducer = (state, action) => {
 };
 
 export const UploadTable = () => {
+  const { documentFetchDispatch } = useContext(DocumentContext);
   const [file, setFile] = useState({});
-  // const [show, setShow] = useState(false);
   const [uploadState, uploadDispatch] = useReducer(
     documentUploadReducer,
     initialUploadState
@@ -78,27 +83,60 @@ export const UploadTable = () => {
   };
 
   const handleUpload = async () => {
-    console.log("uploading");
     uploadDispatch({
       type: UPLOADING_DOCUMENTS,
     });
-    setTimeout(() => {
-      uploadDispatch({
-        type: UPLOAD_DOCUMENTS_FAILED,
-        payload: { error: "ahh!!" },
-      });
-    }, 2000);
+
+    Papa.parse(file, {
+      complete: async (results, file) => {
+        await handleSubmit(
+          results.data.slice(1).map((result) => ({
+            documentType: DocumentNameType[result[0]],
+            documentNumber: result[1],
+            userName: result[2],
+            createTime: moment(result[3], "YYYY/MM/DD hh:mm:ss").toISOString(),
+          }))
+        );
+      },
+    });
   };
 
-  const handleRefreshTable = () => {
+  const handleSubmit = async (documents) => {
+    console.log(documents);
+
+    const res = await uploadDocument(documents);
+    console.log(res);
+    if (res.data.err) {
+      uploadDispatch({
+        type: UPLOAD_DOCUMENTS_FAILED,
+        payload: { error: res.data.err },
+      });
+    } else {
+      uploadDispatch({
+        type: UPLOAD_DOCUMENTS_SUCCEEDED,
+      });
+    }
+  };
+
+  const handleRefreshTable = async () => {
     uploadDispatch({
       type: UPLOAD_DOCUMENT_RESET,
     });
     setFile({});
+    documentFetchDispatch({ type: "FETCH_DOCUMENTS" });
+    const res = await getDocuments();
+    if (res.status) {
+      documentFetchDispatch({
+        type: "FETCH_DOCUMENTS_SUCCEEDED",
+        payload: res.data,
+      });
+    } else {
+      documentFetchDispatch({
+        type: "FETCH_DOCUMENTS_FAILED",
+        payload: res.error,
+      });
+    }
   };
-
-  console.log(uploadState.status);
-  console.log(file);
 
   return (
     <>
