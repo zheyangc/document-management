@@ -24,7 +24,6 @@ export const deleteDocuments = async (req) => {
       data: resp.data,
     };
   } catch (err) {
-    console.log(err);
     return {
       status: false,
       error: err,

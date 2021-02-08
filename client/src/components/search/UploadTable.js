@@ -102,10 +102,7 @@ export const UploadTable = () => {
   };
 
   const handleSubmit = async (documents) => {
-    console.log(documents);
-
     const res = await uploadDocument(documents);
-    console.log(res);
     if (res.data.err) {
       uploadDispatch({
         type: UPLOAD_DOCUMENTS_FAILED,
