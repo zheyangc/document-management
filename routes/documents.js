@@ -23,9 +23,9 @@ router.get("/", async function (req, res) {
 router.delete("/", async function (req, res) {
   let documentsToDelete = req.body;
   try {
-    let idsToDelete = documentsToDelete.map(doc => doc._id);
+    let idsToDelete = documentsToDelete.map((doc) => doc._id);
     let documents = await Document.deleteMany({
-      _id: { $in: idsToDelete}
+      _id: { $in: idsToDelete },
     });
     res.send({ documents });
   } catch (err) {
@@ -66,6 +66,25 @@ router.post("/", async function (req, res) {
 
   Document.insertMany(newDocuments)
     .then((documents) => res.send(documents))
+    .catch((err) => {
+      res.send({
+        msg: "failed to create document number",
+        err: err,
+      });
+    });
+});
+
+// Persist Documents
+// parameters: documentType, userName, count
+router.post("/upload", async function (req, res) {
+  let documents = req.body.data;
+
+  Document.insertMany(documents)
+    .then((documents) =>
+      res.send({
+        msg: "success",
+      })
+    )
     .catch((err) => {
       res.send({
         msg: "failed to create document number",
